@@ -5,6 +5,7 @@ use std::io;
 use openssl_sys;
 use rand::distr::{Distribution,StandardUniform};
 use std::time::Instant;
+use hex;
 fn add() {
     println!("enter number of whole numbers in array");
     let mut input=String::new();
@@ -60,7 +61,7 @@ fn sha(){
     let num_threads: usize=thread::available_parallelism().unwrap().get();
     println!("starting sha256 brute force with {} threads",num_threads);
     let total_combs=26u64.pow(7);
-    let hash: Arc<String>=Arc::new("32adca3bde67a61815896740ee954b0b3dea15f6851f1b35079698729081e2ba".to_string());
+    let hash: Arc<String>=Arc::new("ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad".to_string());
     let mut handles=vec![];
     for _ in 0..num_threads {
         let counter=Arc::clone(&counter);
@@ -76,7 +77,7 @@ fn sha(){
                 unsafe{
                     let mut hash_buf=[0u8;32];
                     openssl_sys::SHA256(c_str.as_ptr() as *const u8,7,hash_buf.as_mut_ptr());
-                    let genhash: String=String::from_utf8_unchecked(hash_buf.to_vec());
+                    let genhash = hex::encode(hash_buf);
                     if genhash==*hash{
                         println!("found matching string: {}",s);
                         break;

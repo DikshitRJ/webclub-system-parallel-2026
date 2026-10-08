@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+hex = "0.4.3"
 openssl = { version = "0.10.81", features = ["vendored"] }
 openssl-sys = { version = "0.9", features = ["vendored"] }
 rand = "0.10.3"
