@@ -1,11 +1,12 @@
 mod addition;
 mod sha1;
+mod sha2;
 
 use std::io::{stdout,Write};
 use crossterm::{cursor,execute,terminal::{self,Clear,ClearType},event::{self,Event,KeyCode}};
 
 fn select_function()->usize {
-    let options=["add","sha1"];
+    let options=["add","sha1","sha2"];
     let mut selected=0usize;
     terminal::enable_raw_mode().expect("raw mode fail");
     loop {
@@ -46,6 +47,7 @@ fn main() {
     match select_function() {
         0 => addition::add(),
         1 => sha1::sha1(),
+        2 => sha2::sha2(),
         _ => {}
     }
 }
